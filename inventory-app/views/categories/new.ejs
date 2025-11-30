@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Category</title>
+</head>
+    <div class="new-category-title">
+        <h1>New Category</h1>
+    </div>
+        <div class="new-category-form">
+            <form action="/categories" method="POST">
+                <div class="input-area">
+                    <label for="name" style="margin-bottom: 10px;">Category Name: </label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="button-area">
+                    <button type="submit" class="create-button">Create</button>
+                    <a href="/categories" class="underline-anim">🔙 Go back</a>
+                </div>
+            </form>
+        </div>
+</body>
+</html>

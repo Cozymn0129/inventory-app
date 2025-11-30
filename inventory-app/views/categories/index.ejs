@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="category-list">
+        <h1>Category List</h1>
+        <div class="sort-options">
+            <span>Sort by: </span>
+            <a href="/categories?sort=id_asc" class="<%= sort === 'id_asc' ? 'active' : '' %>" style="color: rgb(49, 114, 254); font-size: 16px;">ID ⬆️</a> |
+            <a href="/categories?sort=id_desc" class="<%= sort === 'id_desc' ? 'active' : '' %>" style="color: rgb(49, 114, 254); font-size: 16px;">ID ⬇️</a> |
+            <a href="/categories?sort=name" class="<%= sort === 'name' ? 'active' : '' %>" style="color: rgb(49, 114, 254); font-size: 16px;">Name A to Z</a> |
+            <a href="/categories?sort=name_desc" class="<%= sort === 'name_desc' ? 'active' : '' %>" style="color: rgb(49, 114, 254); font-size: 16px;">Name Z to A</a>
+            </div>
+        <ul>
+            <% categories.forEach(cat => { %>
+                <li>
+                    <div class="category-card">
+                        <div class="category-card-left" id="cat-display-<%= cat.id %>">
+                            <%= cat.id %>: <%= cat.name %>
+                        </div>
+
+                        <!-- Edit Mode -->
+                        <div class="category-edit" id="cat-edit-<%= cat.id %>" style="display: none;">
+                            <form action="/categories/<%= cat.id %>?_method=PUT" method="POST">
+                                <input type="text" name="name" value="<%= cat.name %>" required>
+                                <button type="submit">💾 Save</button>
+                            </form>
+                        </div>
+
+                        <div class="category-card-right">
+                            <button class="edit-toggle" onclick="toggleEdit(<%= cat.id %>)">✏️ Edit</button>
+                            <form action="/categories/<%= cat.id %>?_method=DELETE" method="POST" style="display:inline">
+                                <button type="submit" class="delete-category">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+        <div class="add-new-category">
+            <a href="/categories/new">Add New Category</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleEdit(id) {
+            const display = document.getElementById(`cat-display-${id}`);
+            const edit = document.getElementById(`cat-edit-${id}`);
+
+            // toggle
+            if (edit.style.display === 'none') {
+                display.style.display = 'none';
+                edit.style.display = 'block';
+            } else {
+                edit.style.display = 'none';
+                display.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

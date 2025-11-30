@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items</title>
+</head>
+<body>
+    <div class="items-header">
+        <h1>Inventory Details</h1>
+    </div>
+
+    <div class="filter-container">
+        <label for="category-filter">Filter by Category</label>
+        <select id="category-filter" onchange="filterItems()">
+            <% categoryNames.forEach(categoryName => { %>
+                <option value="<%= categoryName %>" <%= categoryName === categoryName ? 'selected' : '' %>> <%= categoryName %> </option>
+            <% }) %>
+        </select>
+
+        <script>
+            function filterItems() {
+                const selected = document.getElementById("category-filter").value;
+                if (selected == 'all') {
+                    window.location.href = '/items';
+                } else {
+                    window.location.href = `/items?category=${encodeURIComponent(selected)}`;
+                }
+            }
+        </script>
+    </div>
+
+    <ul class="item-list">
+        <% items.forEach(item => { %>
+            <li class="item-card">
+                <span class="item-info"><strong>Item ID: </strong><%= item.id %></span>
+                <span class="item-info"><strong>Name: </strong><%= item.name %></span>
+                <span class="item-info"><strong>Quantity: </strong><%= item.quantity %></span>
+                <span class="item-info"><strong>Price: </strong><%= item.price %></span>
+                <a href="/items/<%= item.id %>" style="display: inline-block; width: 85px;">🔍️ Details</a>
+                <a href="/items/<%= item.id %>/edit" style="display: inline-block; width: 60px;">✏️ Edit</a>
+                <form action="/items/<%= item.id %>?_method=DELETE" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-item" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <% if (page === 'home') { %>
+            <div class="header-content">
+                <h1 class="home-title">📦️ Inventory Management System</h1>
+                <p class="home-subtitle">
+                    Welcome to our centralised hub for managing items and categories.
+                    Use the quick access buttons below to view, add, and organise your inventory efficiently.
+                </p>
+            </div>
+            <div class="quick-access">
+                <p>🔗 Quick Access</p>
+            </div>
+            <div class="quick-links">
+                <a href="/items">📄 View All Items</a>
+                <a href="/categories">📁 View All Categories</a>
+                <a href="/items/new">➕ Add New Item</a>
+                <a href="/categories/new">➕ Add New Category</a>
+            </div>
+        <% } else { %>
+            <nav>
+                <div class="nav-left">
+                    <a href="/">🏠 Home</a>
+                </div>
+
+                <div class="nav-right">
+                    <a href="/items">📄 All Items</a>
+                    <a href="/categories">📁 All Categories</a>
+                    <a href="/items/new">➕ Add Item</a>
+                    <a href="/categories/new">➕ Add Category</a>
+                </div>
+            </nav>
+            <main>
+                <%- body %>
+            </main>
+        <% } %>
+        </div>
+    </header>
+</body>
+</html>

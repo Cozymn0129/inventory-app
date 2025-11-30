@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+</head>
+<body>
+    <div class="edit-title">
+        <h1>Edit Item</h1>
+    </div>
+    <div class="form-container">
+        <form action="/items/<%= item.id %>?_method=PUT" class="edit-form" method="POST">
+            <div class="input-areas">
+                <div class="input-area">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" value="<%= item.name %>" required>
+                </div>
+
+                <div class="input-area">
+                    <label for="quantity">Quantity:</label>
+                    <input type="text" name="quantity" id="quantity" value="<%= item.quantity %>" required>
+                </div>
+
+                <div class="input-area">
+                    <label for="price">Price(£):</label>
+                    <input type="text" name="price" id="price" step="0.01" value="<%= item.price %>" required>
+                </div>
+
+                <div class="input-area">
+                <label>Category:</label>
+                    <select name="category_id" required>
+                        <% categories.forEach(cat => { %>
+                            <option value="<%= cat.id %>" <%= cat.id === item.category_id ? "selected" : "" %>>
+                                <%= cat.name %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="edit-buttons">
+                <a href="/items/<%= item.id %>">Cancel</a>
+                <button type="submit" class="update-item">Update</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

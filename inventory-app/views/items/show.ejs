@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Details</title>
+</head>
+<body>
+    <div class="item-details">
+        <h1><%= item.name %></h1>
+        <span><strong>Description: </strong><%= item.description %></span>
+        <span><strong>Quantity: </strong><%= item.quantity %></span>
+        <span><strong>Price: </strong><%= item.price %></span>
+        <span><strong>Category: </strong><%= item.category_name %></span>
+
+        <a href="/items/<%= item.id %>/edit">✏️ Edit</a>
+        <a href="/items" class="underline-anim">🔙 Go back to Item List</a>
+
+        <form action="/items/<%= item.id %>?_method=DELETE" method="POST">
+            <button type="submit" class="delete-item">Delete</button>
+        </form>
+    </div>
+</body>
+</html>

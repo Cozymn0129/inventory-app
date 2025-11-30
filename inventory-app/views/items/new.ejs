@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Item Form</title>
+</head>
+<body>
+    <div class="add-item-title">
+        <h1>Add New Item</h1>
+    </div>
+    <div class="form-container">
+        <form action="/items" method="POST" class="create-form">
+            <div class="input-areas">
+                <div class="input-area">
+                    <label>Name</label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="input-area">
+                    <label>Quantity</label>
+                    <input type="text" name="quantity" required>
+                </div>
+
+                <div class="input-area">
+                    <label>Price</label>
+                    <input type="text" name="price" required>
+                </div>
+
+                <div class="input-area">
+                    <label>Category</label>
+                    <select name="category_id" required>
+                        <option value="" selected disabled style="text-align: center;">--- 📁 Select Category ---</option>
+                        <% categories.forEach(cat => { %>
+                            <option value="<%= cat.id %>"><%= cat.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="create-button">Create</button>
+
+            <a href="/items" class="underline-anim">🔙 Go back</a>
+        </form>
+    </div>
+
+</body>
+</html>
