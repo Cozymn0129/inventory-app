@@ -20,7 +20,7 @@ exports.list = async (req, res) => {
         res.render('categories/index', { categories: result.rows, page: 'categories', sort });
     } catch (err) {
         console.error(err);
-        res.send('Failed to display Categories List');
+        res.status(500).render('error', { message: 'Failed to load items', error: err });
     }
 };
 
@@ -29,7 +29,7 @@ exports.newForm = (req, res) => {
         res.render('categories/new', { page: 'categories' });
     } catch (err) {
         console.error(err);
-        res.send('Failed to display New Form');
+        res.status(500).render('error', { message: 'Failed to display newForm', error: err });
     }
 };
 
@@ -40,7 +40,7 @@ exports.create = async (req, res) => {
         res.redirect('/categories');
     } catch (err) {
         console.error(err);
-        res.send('Failed to create New Category');
+        res.status(500).render('error', { message: 'Failed to display new Create form', error: err });
     }
 };
 
@@ -52,7 +52,7 @@ exports.editForm = async (req, res) => {
         res.render('categories/edit', { category, page: 'categories' });
     } catch (err) {
         console.error(err);
-        res.send('Failed to display Edit Form');
+        res.status(500).render('error', { message: 'Failed to display Edit form' });
     }
 };
 
@@ -64,7 +64,7 @@ exports.update = async (req, res) => {
         res.redirect('/categories');
     } catch (err) {
         console.error(err);
-        res.send('Failed to update');
+        res.send('Failed to update Category');
     }
 };
 
@@ -75,6 +75,6 @@ exports.delete = async (req, res) => {
         res.redirect('/categories', { page: 'categories' });
     } catch (err) {
         console.error(err);
-        res.send('Failed to delete');
+        res.send('Failed to delete Category');
     }
 };

@@ -128,7 +128,7 @@ main {
     height: 220px;
     background: white;
     border-radius: 8px;
-    padding: 20px;
+    padding: 40px;
 }
 
 .item-card a {
@@ -460,4 +460,29 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.error-page h1 {
+  color: #d9534f;
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.error-page p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.error-page a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #0275d8;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.error-page a:hover {
+  background-color: #025aa5;
 }

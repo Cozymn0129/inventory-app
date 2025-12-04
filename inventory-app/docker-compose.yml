@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: inventory-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 230129
+      POSTGRES_DB: inventory_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  app:
+    build: .
+    container_name: inventory-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: 230129
+      DB_HOST: db
+      DB_NAME: inventory_dev
+      DB_PORT: 5432
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:

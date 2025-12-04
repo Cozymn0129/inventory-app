@@ -19,7 +19,7 @@ exports.list = async (req, res) => {
         res.render('items/index', { items: itemResult.rows, categoryNames, page: 'items', selectedCategory: selectedCategory || 'all' });
     } catch (err) {
         console.error(err);
-        res.send('Failed to display Item List');
+        res.stauts(500).render('error', { message: 'Failed to display Item List', error: err });
     }
 };
 
@@ -36,7 +36,7 @@ exports.newForm = async(req, res) => {
         res.render('items/new', { categories, page: 'items' });
     } catch (err) {
         console.error(err);
-        res.send('Failed to display New Form');
+        res.status(500).render('error', { message: 'Failed to display New Form', error: err });
     }
 };
 
@@ -50,7 +50,7 @@ exports.create = async (req, res) => {
         res.redirect('/items');
     } catch (err) {
         console.error(err);
-        res.send('Failed to create New Item');
+        res.status(500).render('error', { message: 'Failed to create New Item', error: err });
     } 
 };
 
@@ -62,7 +62,7 @@ exports.editForm = async (req, res) => {
         res.render('items/edit', { item, categories: cats, page: 'items' });
     } catch (err) {
         console.error(err);
-        res.send('Failed to display Edit Form');
+        res.status(500).render('error', { message: 'Failed to display Edit Form', error: err });
     }
 };
 
@@ -77,18 +77,37 @@ exports.update = async (req, res) => {
         res.redirect(`/items/${id}`);
     } catch (err) {
         console.error(err);
-        res.send('Failed to update');
+        res.status(500).render('error', { message: 'Failed to update', error: err });
     }
 };
 
 exports.delete = async (req, res) => {
-    const id = req.params.id;
-    // admin password check
-    const adminPassword = process.env.ADMIN_PASSWORD;
-    const { admin_password } = req.body;
-    if (admin_password!== adminPassword) {
-        return res.status(403).send('Admin password is incorrect');
-    }
-    await db.query('DELETE FROM items WHERE id=$1', [id]);
+    try {
+        const id = req.params.id;
+        // admin password check
+        const adminPassword = process.env.ADMIN_PASSWORD;
+        const { admin_password } = req.body;
+        if (admin_password!== adminPassword) {
+            return res.status(403).send('Admin password is incorrect');
+        }
+        const result = await db.query('DELETE FROM items WHERE id=$1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).render('error', { message: 'Item not found', error: null });
+        }
     res.redirect('/items');
+    } catch (err) {
+        console.error(err);
+        res.status(500).render('error', { message: 'Failed to delete item', error: err });
+    } 
+};
+
+// エラー確認用
+exports.testError = async (req, res) => {
+    try {
+        // あえて存在しない関数を呼ぶ
+        nonExistentFunction();
+    } catch (err) {
+        console.error(err);
+        res.status(500).render('error', { message: 'This is a test error', error: err });
+    }
 };
