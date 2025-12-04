@@ -19,7 +19,7 @@ exports.list = async (req, res) => {
         res.render('items/index', { items: itemResult.rows, categoryNames, page: 'items', selectedCategory: selectedCategory || 'all' });
     } catch (err) {
         console.error(err);
-        res.stauts(500).render('error', { message: 'Failed to display Item List', error: err });
+        res.stats(500).render('error', { message: 'Failed to display Item List', error: err });
     }
 };
 
