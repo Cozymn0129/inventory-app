@@ -16,7 +16,7 @@ exports.list = async (req, res) => {
 
         const categoriesResult = await db.query('SELECT name FROM categories ORDER BY name');
         const categoryNames = categoriesResult.rows.map(row => row.name);
-        res.render('items/index', { items: itemResult.rows, categoryNames, page: 'items', selectedCategory: selectedCategory || 'all' });
+        res.render('items/index', { items: itemResult.rows, categoryNames, page: { title: 'items' }, selectedCategory: selectedCategory || 'all' });
     } catch (err) {
         console.error(err);
         res.status(500).render('error', { message: 'Failed to display Item List', error: err });
@@ -27,13 +27,13 @@ exports.show = async (req, res) => {
     const id = req.params.id;
     const result = await db.query('SELECT i.*, c.name AS category_name FROM items i LEFT JOIN categories c ON i.category_id = c.id WHERE i.id = $1', [id]);
     if (!result.rows[0]) return res.status(400).send('Not found');
-    res.render('items/show', { item: result.rows[0], category_name: result.rows[0].category_name ,page: 'items' });
+    res.render('items/show', { item: result.rows[0], category_name: result.rows[0].category_name, page: { title: 'items' } });
 };
 
 exports.newForm = async(req, res) => {
     try {
         const categories = (await db.query('SELECT * FROM categories ORDER BY name')).rows;
-        res.render('items/new', { categories, page: 'items' });
+        res.render('items/new', { categories, page: { title: 'items' } });
     } catch (err) {
         console.error(err);
         res.status(500).render('error', { message: 'Failed to display New Form', error: err });
@@ -59,7 +59,7 @@ exports.editForm = async (req, res) => {
         const id = req.params.id;
         const item = (await db.query('SELECT * FROM items WHERE id = $1', [id])).rows[0];
         const cats = (await db.query('SELECT * FROM categories ORDER BY name')).rows;
-        res.render('items/edit', { item, categories: cats, page: 'items' });
+        res.render('items/edit', { item, categories: cats, page: { title: 'items' } });
     } catch (err) {
         console.error(err);
         res.status(500).render('error', { message: 'Failed to display Edit Form', error: err });

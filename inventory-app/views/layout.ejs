@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= page %> | Inventory Management System</title>
+    <% const pageTitle = page && page.title ? page.title : "Inventory App"; %>
+    <title><%= pageTitle %></title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>

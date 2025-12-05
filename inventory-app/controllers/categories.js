@@ -17,7 +17,7 @@ exports.list = async (req, res) => {
                 break;
         }
         const result = await db.query(`SELECT * FROM categories ORDER BY ${orderBy}`);
-        res.render('categories/index', { categories: result.rows, page: 'categories', sort });
+        res.render('categories/index', { categories: result.rows, page: { title: 'categories' }, sort });
     } catch (err) {
         console.error(err);
         res.status(500).render('error', { message: 'Failed to load items', error: err });
@@ -26,7 +26,7 @@ exports.list = async (req, res) => {
 
 exports.newForm = (req, res) => {
     try {
-        res.render('categories/new', { page: 'categories' });
+        res.render('categories/new', { page: { title: 'categories' } });
     } catch (err) {
         console.error(err);
         res.status(500).render('error', { message: 'Failed to display newForm', error: err });
@@ -49,7 +49,7 @@ exports.editForm = async (req, res) => {
         const { id } = req.params;
         const result = await db.query('SELECT * FROM categories WHERE id = $1', [id]);
         const category = result.rows[0];
-        res.render('categories/edit', { category, page: 'categories' });
+        res.render('categories/edit', { category, page: { title: 'categories' } });
     } catch (err) {
         console.error(err);
         res.status(500).render('error', { message: 'Failed to display Edit form' });
@@ -72,7 +72,7 @@ exports.delete = async (req, res) => {
     try {
         const { id } = req.params;
         await db.query('DELETE FROM categories WHERE id = $1', [id]);
-        res.redirect('/categories', { page: 'categories' });
+        res.redirect('/categories', { page: { title: 'categories' } });
     } catch (err) {
         console.error(err);
         res.send('Failed to delete Category');
