@@ -14,7 +14,7 @@
             <% if (error && error.stack) { %>
                 <pre><%= error.stack %></pre>
             <% } %>
-            <a href="/categories/<%= category.id %>" class="underline-anim">🔙 Go back</a>
+            <a href="javascript:history.back()" class="underline-anim">🔙 Go back</a>
         </main>
     </div>
 </body>
