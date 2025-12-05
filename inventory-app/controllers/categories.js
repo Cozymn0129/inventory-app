@@ -72,7 +72,7 @@ exports.delete = async (req, res) => {
     try {
         const { id } = req.params;
         await db.query('DELETE FROM categories WHERE id = $1', [id]);
-        res.redirect('/categories', { page: { title: 'categories' } });
+        res.redirect('/categories');
     } catch (err) {
         console.error(err);
         res.send('Failed to delete Category');

@@ -91,7 +91,7 @@ exports.delete = async (req, res) => {
             return res.status(403).send('Admin password is incorrect');
         }
         const result = await db.query('DELETE FROM items WHERE id=$1', [id]);
-        if (result.rows.length === 0) {
+        if (result.rowCount === 0) {
             return res.status(404).render('error', { message: 'Item not found', error: null });
         }
     res.redirect('/items');
@@ -101,13 +101,3 @@ exports.delete = async (req, res) => {
     } 
 };
 
-// エラー確認用
-exports.testError = async (req, res) => {
-    try {
-        // あえて存在しない関数を呼ぶ
-        nonExistentFunction();
-    } catch (err) {
-        console.error(err);
-        res.status(500).render('error', { message: 'This is a test error', error: err });
-    }
-};
