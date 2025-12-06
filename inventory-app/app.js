@@ -13,6 +13,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(expressLayouts);
+app.set('layout', 'layout');
 
 app.use((req, res, next) => {
     res.locals.page = res.locals.page || { title: '' };
@@ -26,7 +27,7 @@ app.use('/categories', categoriesRouter);
 app.use('/items', itemsRouter);
 
 app.get('/', (req, res) => {
-    res.render('empty', { page: { title: 'home' } });
+    res.render('empty', { page: { title: 'Home - Inventory App' } });
 });
 
 app.listen(port, () => {
