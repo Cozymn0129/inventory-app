@@ -20,7 +20,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// rooting
+// routing
 const categoriesRouter = require('./routes/categories');
 const itemsRouter = require('./routes/items');
 app.use('/categories', categoriesRouter);
